@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samuel Construções</title>
+
+<!-- ICONES -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+
+body{
+  background:#0b0b0b;
+  color:#fff;
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  width:100%;
+  top:0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 20px;
+  background:rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+  z-index:1000;
+}
+
+/* LOGO */
+nav h1{
+  font-size:36px;
+  font-weight:900;
+  background: linear-gradient(45deg,#f1c40f,#ffffff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:3px;
+}
+
+/* MENU */
+#menu{
+  position:relative;
+  z-index:2001;
+}
+
+#menu-bar{
+  width:35px;
+  cursor:pointer;
+}
+
+.bar{
+  height:4px;
+  width:100%;
+  background:#f1c40f;
+  margin:6px 0;
+  border-radius:5px;
+  transition:.4s;
+}
+
+.change #bar1{
+  transform:translateY(10px) rotate(-45deg);
+}
+.change #bar2{
+  opacity:0;
+}
+.change #bar3{
+  transform:translateY(-10px) rotate(45deg);
+}
+
+/* MENU LINKS */
+.nav{
+  position:absolute;
+  top:80px;
+  right:20px;
+  text-align:right;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:2000;
+}
+
+.nav ul{list-style:none;}
+.nav li{margin:15px 0;}
+
+.nav a{
+  text-decoration:none;
+  color:#fff;
+  font-size:26px;
+  font-weight:bold;
+  transition:.3s;
+}
+
+.nav a:hover{
+  color:#f1c40f;
+}
+
+.nav.change{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* FUNDO MENU */
+.menu-bg{
+  position:absolute;
+  top:0;
+  right:0;
+  width:0;
+  height:0;
+  background:radial-gradient(circle,#f1c40f,#000);
+  border-radius:50%;
+  transition:.4s;
+  z-index:1500;
+}
+
+.change-bg{
+  width:500px;
+  height:500px;
+  transform:translate(40%,-40%);
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
+  url('https://images.unsplash.com/photo-1503387762-592deb58ef4e');
+  background-size:cover;
+}
+
+.hero h2{
+  font-size:60px;
+  color:#f1c40f;
+}
+
+.hero p{
+  font-size:22px;
+  margin:15px 0;
+}
+
+/* BOTÃO */
+.btn{
+  background: linear-gradient(45deg,#f1c40f,#ffea00);
+  padding:18px 35px;
+  border:none;
+  border-radius:50px;
+  font-size:20px;
+  font-weight:bold;
+  cursor:pointer;
+  color:#000;
+  letter-spacing:1px;
+  box-shadow:0 10px 25px rgba(241,196,15,0.4);
+  transition: all 0.3s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.btn i{
+  margin-right:10px;
+  font-size:22px;
+}
+
+.btn::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
+  transition:0.5s;
+}
+
+.btn:hover::before{
+  left:100%;
+}
+
+.btn:hover{
+  transform:scale(1.08);
+  box-shadow:0 15px 35px rgba(241,196,15,0.7);
+}
+
+.btn:active{
+  transform:scale(0.95);
+}
+
+/* SEÇÕES */
+section{
+  padding:60px 20px;
+  text-align:center;
+}
+
+h3{
+  font-size:36px;
+  color:#f1c40f;
+}
+
+/* CARDS SERVIÇOS - 2 POR LINHA FIXO */
+#servicos .cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 colunas fixas */
+  gap: 20px;
+  justify-items: center;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+#servicos .card {
+  background: rgba(255,255,255,0.05);
+  padding: 30px;
+  border-radius: 15px;
+  font-size: 22px;
+  text-align: center;
+  width: 100%;
+  max-width: 250px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+#servicos .card:hover {
+  transform: translateY(-5px) scale(1.05);
+  background: #f39c12;
+  color: #111;
+}
+
+/* GALERIA */
+.galeria{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:20px;
+}
+
+.galeria img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+/* WHATSAPP REDONDO TOP */
+.whats{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:70px;
+  height:70px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(45deg,#25D366,#1ebe5d);
+  border-radius:50%;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  transition:0.3s;
+}
+
+.whats i{
+  font-size:34px;
+  color:#fff;
+}
+
+.whats:hover{
+  transform:scale(1.15);
+}
+
+.whats::after{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background:rgba(37,211,102,0.5);
+  animation:pulse 1.5s infinite;
+  z-index:-1;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);opacity:0.7;}
+  70%{transform:scale(1.5);opacity:0;}
+  100%{opacity:0;}
+}
+
+/* SOBRE BOX */
+.sobre-box {
+  background: #111;
+  color: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  line-height: 1.6;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.sobre-box strong {
+  color: #f39c12;
+}
+
+.sobre-box:hover {
+  transform: translateY(-5px);
+  background: #f39c12;
+  color: #000;
+}
+
+/* ORÇAMENTO */
+.orcamento {
+  background: #111;
+  color: #fff;
+  padding: 40px 25px;
+  text-align: center;
+  border-top: 4px solid #f39c12;
+  border-radius: 15px;
+  margin: 50px auto;
+  max-width: 425px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.orcamento h2 {
+  font-size: 26px;
+  color: #f39c12;
+  margin-bottom: 15px;
+}
+
+.orcamento p {
+  margin: 10px 0 20px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.cidades {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px 20px;
+  justify-items: center;
+  margin-top: 15px;
+}
+
+.cidade {
+  background: #f39c12;
+  color: #111;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%;
+  text-align: center;
+}
+
+.cidade:hover {
+  background: #ffb347;
+  transform: scale(1.05);
+  color: #111;
+}
+
+.orcamento a {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 25px;
+  background: #25D366;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  transition: 0.3s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+
+.orcamento a:hover {
+  background: #1ebe5d;
+  transform: scale(1.05);
+}
+
+/* FOOTER */
+footer{
+  background:#000;
+  padding:20px;
+  text-align:center;
+}
+
+.footer h2 {
+  font-size: 24px;
+  color: #f39c12;
+  margin-bottom: 10px;
+}
+
+.footer p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+.whatsapp-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.whatsapp-btn:hover {
+  background: #1ebe5d;
+  transform: scale(1.05);
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #aaa;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <h1>SamuKA OBRAS</h1>
+  <div id="menu">
+    <div id="menu-bar" onclick="menuOnClick()">
+      <div id="bar1" class="bar"></div>
+      <div id="bar2" class="bar"></div>
+      <div id="bar3" class="bar"></div>
+    </div>
+    <div class="nav" id="nav">
+      <ul>
+        <li><a href="#sobre" onclick="menuOnClick()">Sobre</a></li>
+        <li><a href="#servicos" onclick="menuOnClick()">Serviços</a></li>
+        <li><a href="#galeria" onclick="menuOnClick()">Galeria</a></li>
+        <li><a href="#contato" onclick="menuOnClick()">Contato</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="menu-bg" id="menu-bg"></div>
+</nav>
+
+<div class="hero">
+  <div>
+    <h2>Pedreiro Profissional e Pintor Profissional</h2>
+    <p>Qualidade • Confiança • Preço Justo</p>
+    <button class="btn" onclick="whats()">
+      <i class="fa-brands fa-whatsapp"></i> Solicitar Orçamento
+    </button>
+  </div>
+</div>
+
+<section class="orcamento">
+  <h2>Fazemos Orçamento!</h2>
+  <p>Atendemos em várias cidades da região:</p>
+  <div class="cidades">
+    <div class="cidade">Sorocaba</div>
+    <div class="cidade">Araçoiaba da Serra</div>
+    <div class="cidade">Cerquilho</div>
+    <div class="cidade">Tatuí</div>
+  </div>
+  <a href="https://wa.me/5515991054630?text=Olá,%20quero%20um%20orçamento" target="_blank">
+    💬 Solicitar Orçamento
+  </a>
+</section>
+
+<section id="sobre">
+  <h3 class="titulo">Sobre</h3>
+  <div class="sobre-box">
+    <p>
+      👷‍♂️ Especialista em <strong>construção</strong>, <strong>reformas</strong> e <strong>pintura</strong>.
+      Trabalho com qualidade, confiança e acabamento profissional.
+    </p>
+  </div>
+</section>
+
+<section id="servicos">
+  <h3>Serviços</h3>
+  <div class="cards">
+    <div class="card">🎨 Pintura</div>
+    <div class="card">🧱 Construção</div>
+    <div class="card">🔧 Reformas</div>
+    <div class="card">🏠 Acabamentos</div>
+    </div>
+</section>
+
+<section id="galeria">
+  <h3>Galeria</h3>
+  <div class="galeria">
+    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952">
+    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c">
+    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2">
+  </div>
+</section>
+
+<section id="contato">
+  <h3>Contato</h3>
+  <button class="btn" onclick="whats()">
+    <i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
+  </button>
+</section>
+
+<div class="whats" onclick="whats()">
+  <i class="fa-brands fa-whatsapp"></i>
+</div>
+
+<style>
+.footer {
+  background: #111;
+  color: #fff;
+  margin-top: 50px;
+  padding: 30px 20px;
+  text-align: center;
+  border-top: 3px solid #f39c12;
+}
+
+/* título maior */
+.footer h2 {
+  font-size: 24px;
+  color: #f39c12;
+  margin-bottom: 10px;
+}
+
+/* texto */
+.footer p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+/* botão */
+.whatsapp-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.whatsapp-btn:hover {
+  background: #1ebe5d;
+  transform: scale(1.05);
+}
+
+/* parte de baixo */
+.footer-bottom {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #aaa;
+}
+</style>
+
+<footer class="footer">
+
+  <h2>Samuel Construções</h2>
+
+  <p>👷‍♂️ Construção • Reformas • Pintura</p>
+
+<a href="https://wa.me/15991054630?text=Olá,%20quero%20um%20orçamento" class="whatsapp-btn" target="_blank">
+    💬 Falar no WhatsApp
+</a>
+  <div class="footer-bottom">
+    <p>© 2026 Samuel Construções - Todos os direitos reservados</p>
+  </div>
+
+</footer>
+
+<script>
+function menuOnClick() {
+  document.getElementById("menu-bar").classList.toggle("change");
+  document.getElementById("nav").classList.toggle("change");
+  document.getElementById("menu-bg").classList.toggle("change-bg");
+}
+
+function whats(){
+  let numero="5515991054630";
+  let msg="Olá, quero um orçamento!";
+  window.open(`https://wa.me/${15991054630}?text=${encodeURIComponent(msg)}`);
+}
+</script>
+
+</body>
+</html>
+
+
+
+<style>
+
+.sobre-box {
+  background: #111;
+  color: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  line-height: 1.6;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.sobre-box strong {
+  color: #f39c12;
+}
+
+.sobre-box:hover {
+  transform: translateY(-5px);
+  background: #f39c12;
+  color: #000;
+}
+
+</style/>
